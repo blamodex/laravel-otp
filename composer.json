@@ -6,7 +6,8 @@
     "autoload": {
         "psr-4": {
             "Blamodex\\Otp\\": "src/",
-            "Blamodex\\Otp\\Tests\\": "tests/"
+            "Blamodex\\Otp\\Tests\\": "tests/",
+            "Blamodex\\Otp\\Database\\": "database/"
         }
     },
     "authors": [

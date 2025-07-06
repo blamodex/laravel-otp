@@ -2,22 +2,19 @@
 
 namespace Blamodex\Otp\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class OneTimePassword extends Model
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
-        'password_hash',
-        'expired_at'
+        'one_time_passwordable_id',
+        'one_time_passwordable_type',
     ];
 
     /**
@@ -26,7 +23,7 @@ class OneTimePassword extends Model
      * @var list<string>
      */
     protected $hidden = [
-        'password'
+        'password_hash'
     ];
 
     /**
@@ -37,13 +34,18 @@ class OneTimePassword extends Model
     protected function casts(): array
     {
         return [
-            'expired_at' => 'datetime'
+            'expired_at' => 'datetime',
+            'used_at' => 'datetime',
         ];
     }
 
-    public function generatePassword(){
+    public function generate(): string
+    {
         $alphabet = config('blamodex.otp.alphabet');
         $length = config('blamodex.otp.length');
+        $algorithm = config('blamodex.otp.algorithm');
+        $expiry = config('blamodex.otp.expiry');
+
         $password = '';
 
         for($i = 0; $i < $length; $i++){
@@ -52,17 +54,21 @@ class OneTimePassword extends Model
             $password = $password . $passwordCharacter;
         }
 
+        $this->password_hash = password_hash($password, $algorithm);
+        $this->expired_at = Carbon::now()->addSeconds();
+
         return $password;
     }
 
-    public function isValid($attempt) {
-        //GET THE USER
+    public function isValid($attempt): bool
+    {
+        return password_verify($attempt, $this->password_hash);
+    }
 
-        //GET THE USER'S ACTIVE ONE TIME PASSWORD
-
-        $activePassword = null;
-
-        return password_verify($attempt, $activePassword->password_hash);
+    public function use()
+    {
+        $this->used_at = Carbon::now();
+        $this->save();
     }
 
     protected static function booted()
