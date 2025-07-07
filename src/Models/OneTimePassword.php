@@ -55,7 +55,7 @@ class OneTimePassword extends Model
         }
 
         $this->password_hash = password_hash($password, $algorithm);
-        $this->expired_at = Carbon::now()->addSeconds();
+        $this->expired_at = Carbon::now()->addSeconds($expiry);
 
         return $password;
     }

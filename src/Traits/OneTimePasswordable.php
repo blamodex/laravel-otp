@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Blamodex\Otp\Models\OneTimePassword;
 
-trait Passwordable
+trait OneTimePasswordable
 {
     /**
      * Generate and store a new password.
@@ -16,12 +16,13 @@ trait Passwordable
     {
         $oneTimePasswordModel = app(OneTimePassword::class);
 
-        $oneTimePassword = $oneTimePassword->generate();
+        $oneTimePassword = $oneTimePasswordModel->generate();
 
         $this->expireExistingPasswords();
 
         $oneTimePasswordModel->one_time_passwordable_id = $this->id;
         $oneTimePasswordModel->one_time_passwordable_type = get_class($this);
+
         $oneTimePasswordModel->save();
 
         return $oneTimePassword;
@@ -32,7 +33,7 @@ trait Passwordable
      */
     public function verifyOtp(string $attempt): bool
     {
-        $currentPassword = $this->getCurrentPassword();
+        $currentPassword = $this->getCurrentOtp();
 
         $currentAttemptIsValid = $currentPassword->isValid($attempt);
 
@@ -46,21 +47,22 @@ trait Passwordable
     /**
      * Check if the password is expired.
      */
-    public function isOtpExpired(): bool
+    public function isCurrentOtpExpired(): bool
     {
-        $currentPasswordWithExpired = $this->getCurrentPassword(true);
+        $currentPasswordWithExpired = $this->getCurrentOtp(true);
 
-        return Carbon::now()->greaterThan($currentPasswordWithExpired->expires_at);
+        return Carbon::now()->greaterThan($currentPasswordWithExpired->expired_at);
     }
 
-    private function getCurrentPassword($withExpired = false){
+    public function getCurrentOtp($withExpired = false){
 
         $now = Carbon::now();
 
-        $query = OneTimePassword::where('one_time_passwordable_id', '>', $this->id)
-                ->where('one_time_passwordable_type', '>', get_class($this))
+        $query = OneTimePassword::where('one_time_passwordable_id', $this->id)
+                ->where('one_time_passwordable_type', get_class($this))
+                ->whereNull('used_at')
                 ->whereNull('deleted_at')
-                ->orderBy('id', 'DESC')
+                ->orderBy('id', 'DESC');
 
         if($withExpired){
             return $query->first();
@@ -71,13 +73,13 @@ trait Passwordable
     }
 
     private function expireExistingPasswords(){
-        OneTimePassword::where('one_time_passwordable_id', '>', $this->id)
-            ->where('one_time_passwordable_type', '>', get_class($this))
+        OneTimePassword::where('one_time_passwordable_id', $this->id)
+            ->where('one_time_passwordable_type', get_class($this))
             ->whereNull('expired_at')
             ->whereNull('deleted_at')
             ->orderBy('id', 'DESC')
             ->update(
-                'expired_at', Carbon::now()
+                ['expired_at' => Carbon::now()]
             );
     }
 
