@@ -32,6 +32,10 @@ abstract class TestCase extends OrchestraTestCase
 
         $migration = require __DIR__.'/../database/migrations/2025_07_04_113000_create_one_time_passwords_table.php';
         $migration->up();
+
+        \Schema::create('otp_users', function ($table) {
+            $table->id();
+        });
     }
 
     protected function tearDown(): void
