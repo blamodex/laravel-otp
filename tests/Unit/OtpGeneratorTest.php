@@ -7,16 +7,21 @@ use Blamodex\Otp\Models\OneTimePassword;
 use Blamodex\Otp\Services\OtpGenerator;
 use Carbon\Carbon;
 
+/**
+ * @covers \Blamodex\Otp\Services\OtpGenerator
+ */
 class OtpGeneratorTest extends TestCase
 {
     /**
-     * A basic test example.
+     * It returns a password of correct length
+     *
+     * @test
      */
     public function test_password_returned_is_correct_length(): void
     {
-        $otpGenerator = new OtpGenerator;
+        $otpGenerator = new OtpGenerator();
 
-        $oneTimePassword = $otpGenerator->generate(new OneTimePassword);
+        $oneTimePassword = $otpGenerator->generate(new OneTimePassword());
 
         $passwordLength = strlen($oneTimePassword);
 

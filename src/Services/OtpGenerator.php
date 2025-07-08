@@ -4,8 +4,17 @@ namespace Blamodex\Otp\Services;
 
 use Blamodex\Otp\Models\OneTimePassword;
 
+/**
+ * Service responsible for generating one-time passwords (OTPs).
+ */
 class OtpGenerator
 {
+    /**
+     * Generate a new OTP string, hash it, and assign it to the given model.
+     *
+     * @param OneTimePassword $otp The OTP model instance to populate.
+     * @return string The raw (non-hashed) one-time password.
+     */
     public function generate(OneTimePassword $otp): string
     {
         $alphabet = config('blamodex.otp.alphabet');

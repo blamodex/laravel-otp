@@ -4,17 +4,35 @@ namespace Blamodex\Otp;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Service provider for the OTP package.
+ *
+ * Handles the registration and bootstrapping of package services,
+ * including configuration merging and migration loading.
+ */
 class OtpServiceProvider extends ServiceProvider
 {
-    public function register()
+    /**
+     * Register any application services.
+     *
+     * This is where bindings, singletons, and config merging should happen.
+     *
+     * @return void
+     */
+    public function register(): void
     {
-        // Bind services or config here
         $this->mergeConfigFrom(__DIR__ . '/config/otp.php', 'blamodex.otp');
     }
 
-    public function boot()
+    /**
+     * Bootstrap any package services.
+     *
+     * This is where you load migrations, publish configs, etc.
+     *
+     * @return void
+     */
+    public function boot(): void
     {
-        // Load routes, views, migrations, etc.
         $this->publishes([
             __DIR__ . '/config/otp.php' => config_path('otp.php'),
         ], 'config');

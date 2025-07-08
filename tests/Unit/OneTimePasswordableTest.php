@@ -2,54 +2,56 @@
 
 namespace Blamodex\Otp\Tests\Unit;
 
-use Blamodex\Otp\Contracts\OneTimePasswordableInterface;
+use Blamodex\Otp\Tests\Fixtures\DummyOtpUser;
 use Blamodex\Otp\Tests\TestCase;
 use Blamodex\Otp\Traits\OneTimePasswordable;
 
-
-class OneTimePasswordableTest extends TestCase implements OneTimePasswordableInterface
+/**
+ * @covers \Blamodex\Otp\Traits\OneTimePasswordable
+ */
+class OneTimePasswordableTest extends TestCase
 {
-    use OneTimePasswordable;
-
-    public function getKey() {
-        return 1;
-    }
-
-    public function getMorphClass() {
-        return 'foo';
-    }
-
     /**
-     * A basic test example.
+     * It returns true when verifying the correct OTP.
+     *
+     * @test
      */
     public function test_verify_otp_returns_true_on_password_match(): void
     {
-        $password = $this->generateOtp();
+        $dummyOtpUser = DummyOtpUser::create();
 
-        $this->assertTrue($this->verifyOtp($password));
+        $password = $dummyOtpUser->generateOtp();
+
+        $this->assertTrue($dummyOtpUser->verifyOtp($password));
     }
 
     /**
-     * A basic test example.
+     * It returns false when verifying an incorrect OTP.
+     *
+     * @test
      */
     public function test_verify_otp_returns_false_on_password_mismatch(): void
     {
-        $password = $this->generateOtp();
+        $dummyOtpUser = DummyOtpUser::create();
 
-        $this->assertFalse($this->verifyOtp($password . '123'));
+        $password = $dummyOtpUser->generateOtp();
+
+        $this->assertFalse($dummyOtpUser ->verifyOtp($password . '123'));
     }
 
     /**
-     * A basic test example.
+     * It expires the previous OTP when a new one is generated.
+     *
+     * @test
      */
     public function test_passwords_are_expired_when_a_new_password_is_created(): void
     {
-        $passwordOne = $this->generateOtp();
-        $passwordTwo = $this->generateOtp();
+        $dummyOtpUser = DummyOtpUser::create();
 
-        $this->assertFalse($this->verifyOtp($passwordOne));
-        $this->assertTrue($this->verifyOtp($passwordTwo));
+        $passwordOne = $dummyOtpUser->generateOtp();
+        $passwordTwo = $dummyOtpUser->generateOtp();
+
+        $this->assertFalse($dummyOtpUser->verifyOtp($passwordOne));
+        $this->assertTrue($dummyOtpUser->verifyOtp($passwordTwo));
     }
-
-
 }

@@ -42,13 +42,20 @@ class OneTimePassword extends Model
         ];
     }
 
+    /**
+     * Return if the password attempt is valid
+     *
+     * @return bool
+     */
     public function isValid($attempt): bool
     {
         return password_verify($attempt, $this->password_hash);
     }
 
     /**
-     * Mark the OTP as used.
+     * Mark the OTP as used by setting the used_at timestamp.
+     *
+     * @return void
      */
     public function markAsUsed(): void
     {
@@ -56,6 +63,11 @@ class OneTimePassword extends Model
         $this->save();
     }
 
+    /**
+     * Expire all active OTPs for the given model.
+     *
+     * @return void
+     */
     public static function expireAllFor(OneTimePasswordableInterface $model): void
     {
         static::query()
@@ -66,8 +78,15 @@ class OneTimePassword extends Model
             ->update(['expired_at' => now()]);
     }
 
-    public static function getCurrentFor(OneTimePasswordableInterface $model, bool $withExpired = false): ?self
-    {
+    /**
+     * Retrieve the most recent (optionally expired) OTP for the given model.
+     *
+     * @return OneTimePassword|null
+     */
+    public static function getCurrentFor(
+        OneTimePasswordableInterface $model,
+        bool $withExpired = false
+    ): ?OneTimePassword {
         $query = static::query()
             ->where('one_time_passwordable_id', $model->getKey())
             ->where('one_time_passwordable_type', get_class($model))
@@ -82,8 +101,13 @@ class OneTimePassword extends Model
         return $query->first();
     }
 
+    /**
+     * Laravel model booting hook.
+     *
+     * @return void
+     */
     protected static function booted()
     {
-
+        // Optionally add model event bindings here
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<ruleset name="Blamodex">
+    <!--<rule ref="Generic"/>-->
+    <rule ref="PSR12"/>
+    <!--<rule ref="Generic.NamingConventions.CamelCapsFunctionName.NotCamelCaps">
+        <exclude-pattern>tests/Unit</exclude-pattern>
+        <exclude-pattern>tests/Feature</exclude-pattern>
+    </rule>-->
+</ruleset>
