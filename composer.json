@@ -25,7 +25,13 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^11.5.3",
-        "orchestra/testbench": "^10.0"
+        "orchestra/testbench": "^10.0",
+        "squizlabs/php_codesniffer": "4.x-dev"
+    },
+    "scripts": {
+        "test": "phpunit",
+        "lint": "phpcs --standard=.phpcs.xml src",
+        "lint:fix": "phpcbf --standard=.phpcs.xml src"
     },
     "extra": {
         "laravel": {
@@ -35,4 +41,3 @@
         }
     }
 }
-

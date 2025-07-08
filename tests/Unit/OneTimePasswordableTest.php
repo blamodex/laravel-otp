@@ -11,7 +11,6 @@ use Blamodex\Otp\Traits\OneTimePasswordable;
  */
 class OneTimePasswordableTest extends TestCase
 {
-
     /**
      * It returns true when verifying the correct OTP.
      *
@@ -55,6 +54,4 @@ class OneTimePasswordableTest extends TestCase
         $this->assertFalse($dummyOtpUser->verifyOtp($passwordOne));
         $this->assertTrue($dummyOtpUser->verifyOtp($passwordTwo));
     }
-
-
 }

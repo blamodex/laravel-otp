@@ -19,9 +19,9 @@ class OtpGeneratorTest extends TestCase
      */
     public function test_password_returned_is_correct_length(): void
     {
-        $otpGenerator = new OtpGenerator;
+        $otpGenerator = new OtpGenerator();
 
-        $oneTimePassword = $otpGenerator->generate(new OneTimePassword);
+        $oneTimePassword = $otpGenerator->generate(new OneTimePassword());
 
         $passwordLength = strlen($oneTimePassword);
 

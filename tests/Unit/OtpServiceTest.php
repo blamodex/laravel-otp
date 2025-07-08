@@ -22,7 +22,7 @@ class OtpServiceTest extends TestCase
     {
         $user = DummyOtpUser::create();
 
-        $otpService = new OtpService;
+        $otpService = new OtpService();
 
         $oneTimePassword = $otpService->generate($user);
 
@@ -38,7 +38,7 @@ class OtpServiceTest extends TestCase
     {
         $user = DummyOtpUser::create();
 
-        $otpService = new OtpService;
+        $otpService = new OtpService();
 
         $oneTimePassword = $otpService->generate($user);
 
@@ -54,7 +54,7 @@ class OtpServiceTest extends TestCase
     {
         $user = DummyOtpUser::create();
 
-        $otpService = new OtpService;
+        $otpService = new OtpService();
 
         $oneTimePassword = $otpService->generate($user);
 

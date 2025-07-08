@@ -21,7 +21,7 @@ class OneTimePasswordTest extends TestCase
      */
     public function test_is_valid_returns_true_for_correct_attempt()
     {
-        $otp = new OneTimePassword;
+        $otp = new OneTimePassword();
 
         $password = app(OtpGenerator::class)->generate($otp);
 

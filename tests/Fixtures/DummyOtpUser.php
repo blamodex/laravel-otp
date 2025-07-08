@@ -14,11 +14,11 @@ class DummyOtpUser extends Model implements OneTimePasswordableInterface
     protected $guarded = [];
     public $timestamps = false;
 
-    public function getKey() {
+    public function getKey(): int|string|null {
         return $this->id;
     }
 
-    public function getMorphClass() {
+    public function getMorphClass(): string {
         return get_class($this);
     }
 }

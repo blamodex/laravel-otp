@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 abstract class TestCase extends OrchestraTestCase
 {
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             OtpServiceProvider::class,
         ];
     }
 
-    protected function defineEnvironment($app)
+    protected function defineEnvironment($app): void
     {
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [
@@ -30,7 +30,7 @@ abstract class TestCase extends OrchestraTestCase
     {
         parent::setUp();
 
-        $migration = require __DIR__.'/../database/migrations/2025_07_04_113000_create_one_time_passwords_table.php';
+        $migration = require __DIR__ . '/../database/migrations/2025_07_04_113000_create_one_time_passwords_table.php';
         $migration->up();
 
         \Schema::create('otp_users', function ($table) {
