@@ -3,8 +3,8 @@
 namespace Blamodex\Otp\Models;
 
 use Blamodex\Otp\Contracts\OneTimePasswordableInterface;
+use Blamodex\Otp\Events\OneTimePasswordUsed;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class OneTimePassword extends Model
 {
@@ -61,6 +61,8 @@ class OneTimePassword extends Model
     {
         $this->used_at = now();
         $this->save();
+
+        event(new OneTimePasswordUsed($this));
     }
 
     /**
