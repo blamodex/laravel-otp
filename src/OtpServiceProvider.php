@@ -35,7 +35,7 @@ class OtpServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/config/otp.php' => config_path('otp.php'),
-        ], 'config');
+        ], 'blamodex-otp-config');
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }

@@ -26,7 +26,7 @@ composer require blamodex/laravel-otp
 Publish the config file:
 
 ```bash
-php artisan vendor:publish --tag=config
+php artisan vendor:publish --tag=blamodex-otp-config
 ```
 
 Run the migrations:
