@@ -103,7 +103,7 @@ if ($user->verifyOtp('123456')) {
 
 ## 🧪 Testing
 
-This package uses [Orchestra Testbench](https://github.com/orchestral/testbench) and [Pest PHP](https://pestphp.com).
+This package uses [Orchestra Testbench](https://github.com/orchestral/testbench) and [PHPUnit](https://phpunit.de/).
 
 Run tests:
 
@@ -122,7 +122,7 @@ Check code style and fix:
 composer lint:fix
 ```
 
-Check coverage (with Xdebug or PCOV):
+Check coverage (with Xdebug):
 
 ```bash
 
