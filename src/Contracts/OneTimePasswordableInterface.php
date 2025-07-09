@@ -14,9 +14,9 @@ interface OneTimePasswordableInterface
      *
      * Typically the primary key.
      *
-     * @return int|string|null
+     * @return mixed
      */
-    public function getKey(): int|string|null;
+    public function getKey();
 
     /**
      * Get the morph class name for the model.
@@ -25,5 +25,5 @@ interface OneTimePasswordableInterface
      *
      * @return string
      */
-    public function getMorphClass(): string;
+    public function getMorphClass();
 }
