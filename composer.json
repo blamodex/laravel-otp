@@ -30,8 +30,8 @@
     },
     "scripts": {
         "test": "phpunit",
-        "lint": "phpcs --standard=.phpcs.xml src",
-        "lint:fix": "phpcbf --standard=.phpcs.xml src"
+        "lint": "phpcs --standard=.phpcs.xml src tests",
+        "lint:fix": "phpcbf --standard=.phpcs.xml src tests"
     },
     "extra": {
         "laravel": {
