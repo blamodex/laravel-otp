@@ -6,9 +6,6 @@ use Blamodex\Otp\Tests\Fixtures\DummyOtpUser;
 use Blamodex\Otp\Tests\TestCase;
 use Blamodex\Otp\Traits\OneTimePasswordable;
 
-/**
- * @covers \Blamodex\Otp\Traits\OneTimePasswordable
- */
 class OneTimePasswordableTest extends TestCase
 {
     /**

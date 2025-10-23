@@ -7,9 +7,6 @@ use Blamodex\Otp\Tests\TestCase;
 use Blamodex\Otp\Tests\Fixtures\DummyOtpUser;
 use Blamodex\Otp\Validators\OtpValidator;
 
-/**
- * @covers \Blamodex\Otp\Services\OtpService
- */
 class OtpValidatorTest extends TestCase
 {
     /**
@@ -66,5 +63,16 @@ class OtpValidatorTest extends TestCase
         $validator = new OtpValidator($oneTimePassword);
 
         $this->assertFalse($validator->passes());
+    }
+
+    public function test_validator_errors_returns_correctly(): void
+    {
+        $validator = new OtpValidator('invalid-password');
+
+        $this->assertEmpty($validator->errors());
+
+        $validator->passes();
+
+        $this->assertNotEmpty($validator->errors());
     }
 }

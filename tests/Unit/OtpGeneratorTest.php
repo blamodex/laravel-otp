@@ -7,9 +7,6 @@ use Blamodex\Otp\Models\OneTimePassword;
 use Blamodex\Otp\Services\OtpGenerator;
 use Carbon\Carbon;
 
-/**
- * @covers \Blamodex\Otp\Services\OtpGenerator
- */
 class OtpGeneratorTest extends TestCase
 {
     /**
