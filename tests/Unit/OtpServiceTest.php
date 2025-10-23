@@ -8,9 +8,6 @@ use Blamodex\Otp\Tests\TestCase;
 use Blamodex\Otp\Tests\Fixtures\DummyOtpUser;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @covers \Blamodex\Otp\Services\OtpService
- */
 class OtpServiceTest extends TestCase
 {
     /**
