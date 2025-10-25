@@ -2,19 +2,15 @@
 
 namespace Blamodex\Otp\Tests\Unit;
 
-use Blamodex\Otp\Contracts\OneTimePasswordableInterface;
 use Blamodex\Otp\Services\OtpService;
 use Blamodex\Otp\Tests\TestCase;
 use Blamodex\Otp\Tests\Fixtures\DummyOtpUser;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class OtpServiceTest extends TestCase
 {
     /**
      * It returns a password of correct length
-     *
-     * @test
      */
     public function test_verify_returns_true_for_correct_password(): void
     {
@@ -29,8 +25,6 @@ class OtpServiceTest extends TestCase
 
     /**
      * It returns a false for incorrect passwords
-     *
-     * @test
      */
     public function test_verify_returns_false_for_incorrect_password(): void
     {
@@ -38,15 +32,13 @@ class OtpServiceTest extends TestCase
 
         $otpService = new OtpService();
 
-        $oneTimePassword = $otpService->generate($user);
+        $otpService->generate($user);
 
         $this->assertFalse($otpService->verify($user, 'foobar'));
     }
 
     /**
      * It verifies a OTP only once
-     *
-     * @test
      */
     public function test_verify_only_works_once_per_password(): void
     {
@@ -62,8 +54,6 @@ class OtpServiceTest extends TestCase
 
     /**
      * It returns a password of correct length
-     *
-     * @test
      */
     public function test_generate_uses_the_morph_class(): void
     {
