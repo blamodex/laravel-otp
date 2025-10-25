@@ -2,7 +2,6 @@
 
 namespace Blamodex\Otp\Validators;
 
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\MessageBag;
 
 /**
