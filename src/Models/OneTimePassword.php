@@ -96,14 +96,4 @@ class OneTimePassword extends Model
 
         return $query->first();
     }
-
-    /**
-     * Laravel model booting hook.
-     *
-     * @return void
-     */
-    protected static function booted()
-    {
-        // Optionally add model event bindings here
-    }
 }
