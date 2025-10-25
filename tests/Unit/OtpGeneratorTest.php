@@ -11,8 +11,6 @@ class OtpGeneratorTest extends TestCase
 {
     /**
      * It returns a password of correct length
-     *
-     * @test
      */
     public function test_password_returned_is_correct_length(): void
     {

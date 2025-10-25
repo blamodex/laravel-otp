@@ -11,8 +11,6 @@ class OtpValidatorTest extends TestCase
 {
     /**
      * It passes with correct password length and correct characters
-     *
-     * @test
      */
     public function test_validator_passes_for_correct_password_length(): void
     {
@@ -29,8 +27,6 @@ class OtpValidatorTest extends TestCase
 
     /**
      * It fails with incorrect password length
-     *
-     * @test
      */
     public function test_validator_fails_for_incorrect_password_length(): void
     {
@@ -47,8 +43,6 @@ class OtpValidatorTest extends TestCase
 
     /**
      * It fails with incorrect characters
-     *
-     * @test
      */
     public function test_validator_fails_for_incorrect_characters(): void
     {
