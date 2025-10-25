@@ -85,20 +85,14 @@ class OneTimePassword extends Model
      *
      * @return OneTimePassword|null
      */
-    public static function getCurrentFor(
-        OneTimePasswordableInterface $model,
-        bool $withExpired = false
-    ): ?OneTimePassword {
+    public static function getCurrentFor(OneTimePasswordableInterface $model): ?OneTimePassword
+    {
         $query = static::query()
             ->where('one_time_passwordable_id', $model->getKey())
             ->where('one_time_passwordable_type', $model->getMorphClass())
             ->whereNull('used_at')
             ->whereNull('deleted_at')
             ->orderByDesc('id');
-
-        if (!$withExpired) {
-            $query->where('expired_at', '>', now()->format('Y-m-d H:i:s'));
-        }
 
         return $query->first();
     }
