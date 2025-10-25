@@ -74,7 +74,7 @@ class OneTimePassword extends Model
     {
         static::query()
             ->where('one_time_passwordable_id', $model->getKey())
-            ->where('one_time_passwordable_type', get_class($model))
+            ->where('one_time_passwordable_type', $model->getMorphClass())
             ->whereNull('used_at')
             ->whereNull('expired_at')
             ->update(['expired_at' => now()]);
@@ -91,7 +91,7 @@ class OneTimePassword extends Model
     ): ?OneTimePassword {
         $query = static::query()
             ->where('one_time_passwordable_id', $model->getKey())
-            ->where('one_time_passwordable_type', get_class($model))
+            ->where('one_time_passwordable_type', $model->getMorphClass())
             ->whereNull('used_at')
             ->whereNull('deleted_at')
             ->orderByDesc('id');

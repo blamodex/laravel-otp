@@ -23,7 +23,7 @@ class OtpService
     {
         $otp = new OneTimePassword();
         $otp->one_time_passwordable_id = $model->getKey();
-        $otp->one_time_passwordable_type = get_class($model);
+        $otp->one_time_passwordable_type = $model->getMorphClass();
 
         $password = app(OtpGenerator::class)->generate($otp);
 
