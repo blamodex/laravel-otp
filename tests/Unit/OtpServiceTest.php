@@ -7,6 +7,7 @@ use Blamodex\Otp\Services\OtpService;
 use Blamodex\Otp\Tests\TestCase;
 use Blamodex\Otp\Tests\Fixtures\DummyOtpUser;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class OtpServiceTest extends TestCase
 {
@@ -57,5 +58,31 @@ class OtpServiceTest extends TestCase
 
         $this->assertTrue($otpService->verify($user, $oneTimePassword));
         $this->assertFalse($otpService->verify($user, $oneTimePassword));
+    }
+
+    /**
+     * It returns a password of correct length
+     *
+     * @test
+     */
+    public function test_generate_uses_the_morph_class(): void
+    {
+        $user = DummyOtpUser::create();
+
+        $otpService = new OtpService();
+
+        $otpService->generate($user);
+
+        $this->assertEquals('Blamodex\Otp\Tests\Fixtures\DummyOtpUser', $user->getMorphClass());
+
+        Relation::morphMap([
+            'user' => DummyOtpUser::class,
+        ]);
+
+        $user = DummyOtpUser::create();
+
+        $otpService->generate($user);
+
+        $this->assertEquals('user', $user->getMorphClass());
     }
 }
