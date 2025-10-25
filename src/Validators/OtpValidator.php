@@ -2,7 +2,6 @@
 
 namespace Blamodex\Otp\Validators;
 
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\MessageBag;
 
 /**
@@ -46,8 +45,8 @@ class OtpValidator
     public function __construct(string $input)
     {
         $this->input = $input;
-        $this->length = Config::get('blamodex.otp.length');
-        $this->alphabet = Config::get('blamodex.otp.alphabet');
+        $this->length = config('blamodex.otp.length');
+        $this->alphabet = config('blamodex.otp.alphabet');
         $this->errors = new MessageBag();
     }
 
