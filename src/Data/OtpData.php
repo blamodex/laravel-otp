@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Blamodex\Otp\Data;
 
+use SensitiveParameter;
+
 readonly class OtpData
 {
     /**
@@ -11,6 +13,7 @@ readonly class OtpData
      * @param string $passwordHash The hashed one-time password.
      */
     public function __construct(
+        #[SensitiveParameter]
         public string $password,
         public string $passwordHash,
     ) {}
