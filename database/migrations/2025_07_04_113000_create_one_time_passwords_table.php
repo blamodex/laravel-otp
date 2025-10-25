@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('password_hash');
 
             // Polymorphic relationship
-            $table->unsignedBigInteger('one_time_passwordable_id');
-            $table->string('one_time_passwordable_type');
+            $table->morphs('one_time_passwordable');
 
             // Tracking
             $table->dateTime('used_at')->nullable();
@@ -29,7 +28,6 @@ return new class extends Migration
             $table->softDeletes();
 
             // Indexes
-            $table->index(['one_time_passwordable_id', 'one_time_passwordable_type'], 'otp_morph_index');
             $table->index('expired_at');
             $table->index('used_at');
         });
