@@ -28,12 +28,14 @@
         "phpunit/phpunit": "^11.5.3",
         "orchestra/testbench": "^10.0",
         "squizlabs/php_codesniffer": "4.x-dev",
-        "phpunit/php-code-coverage": "*"
+        "phpunit/php-code-coverage": "*",
+        "larastan/larastan": "^3.0"
     },
     "scripts": {
         "test": "phpunit",
         "lint": "phpcs --standard=.phpcs.xml src tests",
-        "lint:fix": "phpcbf --standard=.phpcs.xml src tests"
+        "lint:fix": "phpcbf --standard=.phpcs.xml src tests",
+        "analyze": "vendor/bin/phpstan analyse --memory-limit=256M"
     },
     "extra": {
         "laravel": {
