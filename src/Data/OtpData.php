@@ -16,5 +16,6 @@ readonly class OtpData
         #[SensitiveParameter]
         public string $password,
         public string $passwordHash,
-    ) {}
+    ) {
+    }
 }
