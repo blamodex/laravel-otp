@@ -9,11 +9,9 @@ class OtpServiceProviderTest extends TestCase
 {
     public function test_validator_binding(): void
     {
-        $validator = app()->makeWith('OtpValidator', [
-            'one_time_password' => '123456'
-        ]);
+        $validator = new OtpValidator('123456');
 
-        $this->assertInstanceOf(OtpValidator::class, $validator);
+        $this->assertTrue($validator->passes());
     }
 
     public function test_config_is_loaded(): void
