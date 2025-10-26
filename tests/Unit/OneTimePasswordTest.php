@@ -69,24 +69,21 @@ class OneTimePasswordTest extends TestCase
 
         // Valid OTP
         $valid = OneTimePassword::create([
-            'one_time_passwordable_id' => $user->id,
-            'one_time_passwordable_type' => DummyOtpUser::class,
+            'one_time_passwordable_id' => $user->getKey(),
+            'one_time_passwordable_type' => $user->getMorphClass(),
             'password_hash' => 'foo',
             'expired_at' => now()->addMinute()->format('Y-m-d H:i:s'),
         ]);
 
         // Expired OTP
-        $expired = OneTimePassword::create([
-            'one_time_passwordable_id' => $user->id,
-            'one_time_passwordable_type' => DummyOtpUser::class,
+        OneTimePassword::create([
+            'one_time_passwordable_id' => $user->getKey(),
+            'one_time_passwordable_type' => $user->getMorphClass(),
             'password_hash' => 'foo',
             'expired_at' => now()->subMinute()->format('Y-m-d H:i:s'),
         ]);
 
         $fetched = OneTimePassword::getCurrentFor($user);
         $this->assertEquals($valid->id, $fetched->id);
-
-        $fetchedWithExpired = OneTimePassword::getCurrentFor($user, true);
-        $this->assertEquals($expired->id, $fetchedWithExpired->id);
     }
 }

@@ -97,6 +97,7 @@ class OneTimePassword extends Model
             ->where('one_time_passwordable_type', $model->getMorphClass())
             ->whereNull('used_at')
             ->whereNull('deleted_at')
+            ->where('expired_at', '>', now())
             ->orderByDesc('id');
 
         return $query->first();
