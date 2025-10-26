@@ -67,11 +67,10 @@ class OtpService
      * Retrieve the most recent OTP for the given model.
      *
      * @param OneTimePasswordableInterface $model The model to retrieve the OTP for.
-     * @param bool $withExpired Whether to include expired OTPs in the result.
      * @return OneTimePassword|null The latest OTP, or null if none found.
      */
-    private function getCurrent(OneTimePasswordableInterface $model, bool $withExpired = false): ?OneTimePassword
+    private function getCurrent(OneTimePasswordableInterface $model): ?OneTimePassword
     {
-        return OneTimePassword::getCurrentFor($model, $withExpired);
+        return OneTimePassword::getCurrentFor($model);
     }
 }
