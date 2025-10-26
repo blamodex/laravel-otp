@@ -20,8 +20,14 @@ class OtpGeneratorTest extends TestCase
 
         $oneTimePassword = $otpGenerator->generate(new OneTimePassword());
 
-        $passwordLength = strlen($oneTimePassword);
+        $passwordLength = strlen($oneTimePassword->password);
 
         $this->assertEquals($passwordLength, config('blamodex.otp.length'));
+        $this->assertTrue(
+            password_verify(
+                $oneTimePassword->password,
+                $oneTimePassword->passwordHash
+            )
+        );
     }
 }

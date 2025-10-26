@@ -2,12 +2,10 @@
 
 namespace Blamodex\Otp\Tests\Unit;
 
-use Blamodex\Otp\Contracts\OneTimePasswordableInterface;
 use Blamodex\Otp\Models\OneTimePassword;
 use Blamodex\Otp\Services\OtpGenerator;
 use Blamodex\Otp\Tests\TestCase;
 use Blamodex\Otp\Tests\Fixtures\DummyOtpUser;
-use Illuminate\Database\Eloquent\Model;
 
 class OneTimePasswordTest extends TestCase
 {
@@ -20,9 +18,10 @@ class OneTimePasswordTest extends TestCase
     {
         $otp = new OneTimePassword();
 
-        $password = app(OtpGenerator::class)->generate($otp);
+        $otpData = app(OtpGenerator::class)->generate();
+        $otp->password_hash = $otpData->passwordHash;
 
-        $this->assertTrue($otp->isValid($password));
+        $this->assertTrue($otp->isValid($otpData->password));
         $this->assertFalse($otp->isValid('wrong'));
     }
 

@@ -2,33 +2,27 @@
 
 namespace Blamodex\Otp\Services;
 
-use Blamodex\Otp\Models\OneTimePassword;
+use Blamodex\Otp\Contracts\OtpGeneratorInterface;
+use Blamodex\Otp\Data\OtpData;
 
 /**
  * Service responsible for generating one-time passwords (OTPs).
  */
-class OtpGenerator
+class OtpGenerator implements OtpGeneratorInterface
 {
-    /**
-     * Generate a new OTP string, hash it, and assign it to the given model.
-     *
-     * @param OneTimePassword $otp The OTP model instance to populate.
-     * @return string The raw (non-hashed) one-time password.
-     */
-    public function generate(OneTimePassword $otp): string
+    public function generate(): OtpData
     {
         $alphabet = config('blamodex.otp.alphabet');
         $length = config('blamodex.otp.length');
         $algorithm = config('blamodex.otp.algorithm');
-        $expiry = config('blamodex.otp.expiry');
 
         $password = collect(range(1, $length))
             ->map(fn () => $alphabet[random_int(0, strlen($alphabet) - 1)])
             ->implode('');
 
-        $otp->password_hash = password_hash($password, $algorithm);
-        $otp->expired_at = now()->addSeconds($expiry);
-
-        return $password;
+        return new OtpData(
+            $password,
+            password_hash($password, $algorithm)
+        );
     }
 }

@@ -3,9 +3,11 @@
 namespace Blamodex\Otp\Services;
 
 use Blamodex\Otp\Contracts\OneTimePasswordableInterface;
+use Blamodex\Otp\Contracts\OtpGeneratorInterface;
 use Blamodex\Otp\Events\OneTimePasswordCreated;
 use Blamodex\Otp\Models\OneTimePassword;
 use Blamodex\Otp\Services\OtpGenerator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Service responsible for generating, verifying, and managing OTPs
@@ -21,18 +23,22 @@ class OtpService
      */
     public function generate(OneTimePasswordableInterface $model): string
     {
-        $otp = new OneTimePassword();
-        $otp->one_time_passwordable_id = $model->getKey();
-        $otp->one_time_passwordable_type = $model->getMorphClass();
+        $otpData = app(OtpGeneratorInterface::class)->generate();
 
-        $password = app(OtpGenerator::class)->generate($otp);
+        DB::transaction(function () use ($model, $otpData) {
+            $otp = new OneTimePassword();
+            $otp->one_time_passwordable_id = $model->getKey();
+            $otp->one_time_passwordable_type = $model->getMorphClass();
+            $otp->password_hash = $otpData->passwordHash;
+            $otp->expired_at = now()->addSeconds(config('blamodex.otp.expiry'));
+            $otp->save();
 
-        $this->expireAllFor($model);
-        $otp->save();
+            $this->expireAllFor($model);
 
-        event(new OneTimePasswordCreated($otp));
+            event(new OneTimePasswordCreated($otp));
+        });
 
-        return $password;
+        return $otpData->password;
     }
 
     /**
