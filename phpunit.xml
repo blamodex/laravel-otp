@@ -2,9 +2,6 @@
 <phpunit bootstrap="vendor/autoload.php"
          colors="true"
          stopOnFailure="false">
-    <php>
-        <env name="XDEBUG_MODE" value="coverage"/>
-    </php>
     <testsuites>
         <testsuite name="Unit">
             <directory>tests/Unit</directory>
@@ -15,9 +12,4 @@
             <directory>src</directory>
         </include>
     </source>
-    <coverage>
-        <report>
-            <html outputDirectory="tests/reports"/>
-        </report>
-    </coverage>
 </phpunit>
