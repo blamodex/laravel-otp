@@ -30,6 +30,9 @@ jobs:
       - name: Run linting
         run: composer lint
 
+      - name: Run static analysis
+        run: composer analyze
+
       - name: Run tests
         run: composer test
 
