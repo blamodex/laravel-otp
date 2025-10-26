@@ -125,7 +125,7 @@ composer lint:fix
 Check coverage (with Xdebug):
 
 ```bash
-
+composer test:coverage
 ```
 
 ---
@@ -136,6 +136,8 @@ Check coverage (with Xdebug):
 src/
 ├── Models/
 │   └── OneTimePassword.php
+├── Data/
+│   └── OtpData.php
 ├── Services/
 │   ├── OtpGenerator.php
 │   └── OtpService.php
