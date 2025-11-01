@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blamodex\Otp\Services;
 
 use Blamodex\Otp\Contracts\OneTimePasswordableInterface;
 use Blamodex\Otp\Contracts\OtpGeneratorInterface;
 use Blamodex\Otp\Events\OneTimePasswordCreated;
 use Blamodex\Otp\Models\OneTimePassword;
-use Blamodex\Otp\Services\OtpGenerator;
 use Illuminate\Support\Facades\DB;
 
 /**

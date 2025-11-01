@@ -29,7 +29,8 @@
         "orchestra/testbench": "^10.0",
         "squizlabs/php_codesniffer": "4.x-dev",
         "phpunit/php-code-coverage": "*",
-        "larastan/larastan": "^3.0"
+        "larastan/larastan": "^3.0",
+        "slevomat/coding-standard": "^8.0@dev"
     },
     "scripts": {
         "test": "phpunit",
@@ -43,6 +44,11 @@
             "providers": [
                 "Blamodex\\Otp\\OtpServiceProvider"
             ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     }
 }

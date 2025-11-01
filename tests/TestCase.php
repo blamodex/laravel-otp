@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blamodex\Otp\Tests;
 
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Blamodex\Otp\OtpServiceProvider;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 abstract class TestCase extends OrchestraTestCase
 {

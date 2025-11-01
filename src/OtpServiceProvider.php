@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blamodex\Otp;
 
 use Blamodex\Otp\Contracts\OtpGeneratorInterface;

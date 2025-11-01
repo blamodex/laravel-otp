@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blamodex\Otp\Tests\Fixtures;
 
 use Blamodex\Otp\Traits\OneTimePasswordable;
