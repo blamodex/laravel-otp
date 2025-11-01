@@ -7,7 +7,6 @@ namespace Blamodex\Otp\Tests\Unit;
 use Blamodex\Otp\Tests\TestCase;
 use Blamodex\Otp\Models\OneTimePassword;
 use Blamodex\Otp\Services\OtpGenerator;
-use Carbon\Carbon;
 
 class OtpGeneratorTest extends TestCase
 {
