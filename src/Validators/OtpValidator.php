@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blamodex\Otp\Validators;
 
 use Illuminate\Support\MessageBag;
