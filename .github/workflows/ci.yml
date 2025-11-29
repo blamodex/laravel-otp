@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - main
-
+      
 jobs:
   lint-analyze-test:
     runs-on: ubuntu-latest
