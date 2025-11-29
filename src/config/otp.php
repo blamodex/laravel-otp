@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /* PASSWORD ALGORITHM, SEE https://www.php.net/manual/en/function.password-hash.php FOR MORE INFO */
     'algorithm' => PASSWORD_BCRYPT,

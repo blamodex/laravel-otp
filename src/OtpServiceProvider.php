@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blamodex\Otp;
 
-use Blamodex\Otp\Validators\OtpValidator;
+use Blamodex\Otp\Contracts\OtpGeneratorInterface;
+use Blamodex\Otp\Services\OtpGenerator;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -23,12 +26,7 @@ class OtpServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/config/otp.php', 'blamodex.otp');
-
-        $this->app->bind('OtpValidator', function ($app, array $params) {
-            return new OtpValidator(
-                $params['one_time_password']
-            );
-        });
+        $this->app->singleton(OtpGeneratorInterface::class, OtpGenerator::class);
     }
 
     /**

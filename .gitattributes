@@ -1,0 +1,10 @@
+# Exclude development files from package exports
+/.github export-ignore
+/tests export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.phpcs.xml export-ignore
+/phpstan.neon export-ignore
+/phpunit.xml export-ignore
+/CHANGELOG.md export-ignore
+/agents export-ignore

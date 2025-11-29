@@ -1,11 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blamodex\Otp\Models;
 
 use Blamodex\Otp\Contracts\OneTimePasswordableInterface;
 use Blamodex\Otp\Events\OneTimePasswordUsed;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * The OneTimePassword model.
+ *
+ * @property int $id
+ * @property int $one_time_passwordable_id
+ * @property string $one_time_passwordable_type
+ * @property string $password_hash
+ * @property \Illuminate\Support\Carbon $expired_at
+ * @property \Illuminate\Support\Carbon $used_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ */
 class OneTimePassword extends Model
 {
     /**
@@ -19,14 +33,6 @@ class OneTimePassword extends Model
         'password_hash',
         'expired_at',
         'used_at'
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
     ];
 
     /**
@@ -45,9 +51,10 @@ class OneTimePassword extends Model
     /**
      * Return if the password attempt is valid
      *
+     * @param string $attempt The password attempt to validate.
      * @return bool
      */
-    public function isValid($attempt): bool
+    public function isValid(string $attempt): bool
     {
         return password_verify($attempt, $this->password_hash);
     }
@@ -85,31 +92,16 @@ class OneTimePassword extends Model
      *
      * @return OneTimePassword|null
      */
-    public static function getCurrentFor(
-        OneTimePasswordableInterface $model,
-        bool $withExpired = false
-    ): ?OneTimePassword {
+    public static function getCurrentFor(OneTimePasswordableInterface $model): ?OneTimePassword
+    {
         $query = static::query()
             ->where('one_time_passwordable_id', $model->getKey())
             ->where('one_time_passwordable_type', $model->getMorphClass())
             ->whereNull('used_at')
             ->whereNull('deleted_at')
+            ->where('expired_at', '>', now())
             ->orderByDesc('id');
 
-        if (!$withExpired) {
-            $query->where('expired_at', '>', now()->format('Y-m-d H:i:s'));
-        }
-
         return $query->first();
-    }
-
-    /**
-     * Laravel model booting hook.
-     *
-     * @return void
-     */
-    protected static function booted()
-    {
-        // Optionally add model event bindings here
     }
 }

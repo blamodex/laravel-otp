@@ -1,17 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blamodex\Otp\Tests\Unit;
 
 use Blamodex\Otp\Tests\Fixtures\DummyOtpUser;
 use Blamodex\Otp\Tests\TestCase;
-use Blamodex\Otp\Traits\OneTimePasswordable;
 
 class OneTimePasswordableTest extends TestCase
 {
     /**
      * It returns true when verifying the correct OTP.
-     *
-     * @test
      */
     public function test_verify_otp_returns_true_on_password_match(): void
     {
@@ -24,8 +23,6 @@ class OneTimePasswordableTest extends TestCase
 
     /**
      * It returns false when verifying an incorrect OTP.
-     *
-     * @test
      */
     public function test_verify_otp_returns_false_on_password_mismatch(): void
     {
@@ -38,8 +35,6 @@ class OneTimePasswordableTest extends TestCase
 
     /**
      * It expires the previous OTP when a new one is generated.
-     *
-     * @test
      */
     public function test_passwords_are_expired_when_a_new_password_is_created(): void
     {
