@@ -1,6 +1,24 @@
 # Blamodex Laravel OTP
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/blamodex/laravel-otp.svg?style=flat-square)](https://packagist.org/packages/blamodex/laravel-otp)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/blamodex/laravel-otp/ci.yml?branch=main&label=tests&style=flat-square)](https://github.com/blamodex/laravel-otp/actions?query=workflow%3ACI+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/blamodex/laravel-otp.svg?style=flat-square)](https://packagist.org/packages/blamodex/laravel-otp)
+[![License](https://img.shields.io/packagist/l/blamodex/laravel-otp.svg?style=flat-square)](https://packagist.org/packages/blamodex/laravel-otp)
+
 A lightweight Laravel package to add one-time password (OTP) capabilities to any Eloquent model using polymorphic relationships.
+
+---
+
+## Table of Contents
+
+- [Features](#-features)
+- [Installation](#-installation)
+- [Configuration](#️-configuration)
+- [Usage](#-usage)
+- [Testing](#-testing)
+- [Project Structure](#-project-structure)
+- [Contributing](#-contributing)
+- [License](#-license)
 
 ---
 
@@ -159,6 +177,20 @@ tests/
 
 ---
 
-## 📄 License
+## 🤝 Contributing
 
-MIT © [Blamodex](https://github.com/blackmage-codex)
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+---
+
+## � Changelog
+
+Please see [CHANGELOG.md](CHANGELOG.md) for recent changes.
+
+---
+
+## �📄 License
+
+MIT © [Blamodex](https://github.com/blamodex)
+
+For more information, see the [LICENSE](LICENSE) file.

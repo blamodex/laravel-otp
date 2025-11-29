@@ -2,7 +2,21 @@
     "name": "blamodex/laravel-otp",
     "description": "A simple, Laravel-ready one-time password (OTP) package for rapid prototyping and lightweight use cases.",
     "type": "library",
+    "keywords": [
+        "laravel",
+        "otp",
+        "one-time-password",
+        "authentication",
+        "verification",
+        "2fa",
+        "security"
+    ],
     "license": "MIT",
+    "homepage": "https://github.com/blamodex/laravel-otp",
+    "support": {
+        "issues": "https://github.com/blamodex/laravel-otp/issues",
+        "source": "https://github.com/blamodex/laravel-otp"
+    },
     "autoload": {
         "psr-4": {
             "Blamodex\\Otp\\": "src/",
@@ -16,7 +30,6 @@
             "email": "admin@joelblodgett.ca"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": "^8.2",
         "illuminate/support": "^12.0",
@@ -30,7 +43,8 @@
         "squizlabs/php_codesniffer": "4.x-dev",
         "phpunit/php-code-coverage": "*",
         "larastan/larastan": "^3.0",
-        "slevomat/coding-standard": "^8.0@dev"
+        "slevomat/coding-standard": "^8.0@dev",
+        "blamodex/laravel-ai-agents": "^1.0"
     },
     "scripts": {
         "test": "phpunit",
@@ -50,5 +64,7 @@
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
-    }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
