@@ -2,6 +2,11 @@
 .DS_Store
 .phpunit.result.cache
 /vendor
+<<<<<<< HEAD
 /composer.lock
 /tests/reports
 /agents
+=======
+/tests/reports
+agents
+>>>>>>> f33594e3ef75ff367ca088f0f5c44a7f5fcd45b1

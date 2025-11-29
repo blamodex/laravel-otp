@@ -1,35 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blamodex\Otp\Tests\Unit;
 
-use Blamodex\Otp\Contracts\OneTimePasswordableInterface;
 use Blamodex\Otp\Models\OneTimePassword;
 use Blamodex\Otp\Services\OtpGenerator;
 use Blamodex\Otp\Tests\TestCase;
 use Blamodex\Otp\Tests\Fixtures\DummyOtpUser;
-use Illuminate\Database\Eloquent\Model;
 
 class OneTimePasswordTest extends TestCase
 {
     /**
      * It returns true when the correct password is verified, and false otherwise.
-     *
-     * @test
      */
     public function test_is_valid_returns_true_for_correct_attempt()
     {
         $otp = new OneTimePassword();
 
-        $password = app(OtpGenerator::class)->generate($otp);
+        $otpData = app(OtpGenerator::class)->generate();
+        $otp->password_hash = $otpData->passwordHash;
 
-        $this->assertTrue($otp->isValid($password));
+        $this->assertTrue($otp->isValid($otpData->password));
         $this->assertFalse($otp->isValid('wrong'));
     }
 
     /**
      * It sets the 'used_at' field when marked as used.
-     *
-     * @test
      */
     public function test_mark_as_used_sets_used_at()
     {
@@ -47,8 +44,6 @@ class OneTimePasswordTest extends TestCase
 
     /**
      * It sets 'expired_at' on all active OTPs for a model.
-     *
-     * @test
      */
     public function test_expire_all_for_sets_expired_at()
     {
@@ -69,8 +64,6 @@ class OneTimePasswordTest extends TestCase
 
     /**
      * It excludes expired OTPs unless explicitly requested.
-     *
-     * @test
      */
     public function test_get_current_for_excludes_expired()
     {
@@ -78,24 +71,21 @@ class OneTimePasswordTest extends TestCase
 
         // Valid OTP
         $valid = OneTimePassword::create([
-            'one_time_passwordable_id' => $user->id,
-            'one_time_passwordable_type' => DummyOtpUser::class,
+            'one_time_passwordable_id' => $user->getKey(),
+            'one_time_passwordable_type' => $user->getMorphClass(),
             'password_hash' => 'foo',
             'expired_at' => now()->addMinute()->format('Y-m-d H:i:s'),
         ]);
 
         // Expired OTP
-        $expired = OneTimePassword::create([
-            'one_time_passwordable_id' => $user->id,
-            'one_time_passwordable_type' => DummyOtpUser::class,
+        OneTimePassword::create([
+            'one_time_passwordable_id' => $user->getKey(),
+            'one_time_passwordable_type' => $user->getMorphClass(),
             'password_hash' => 'foo',
             'expired_at' => now()->subMinute()->format('Y-m-d H:i:s'),
         ]);
 
         $fetched = OneTimePassword::getCurrentFor($user);
         $this->assertEquals($valid->id, $fetched->id);
-
-        $fetchedWithExpired = OneTimePassword::getCurrentFor($user, true);
-        $this->assertEquals($expired->id, $fetchedWithExpired->id);
     }
 }

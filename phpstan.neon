@@ -1,0 +1,13 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+
+    paths:
+        - src/
+
+    level: 6
+
+    ignoreErrors:
+        - '#Trait Blamodex\\Otp\\Traits\\OneTimePasswordable is used zero times and is not analysed.#'

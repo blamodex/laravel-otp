@@ -3,7 +3,11 @@ name: CI
 on:
   pull_request:
     branches:
+<<<<<<< HEAD
       - main
+=======
+      - master
+>>>>>>> f33594e3ef75ff367ca088f0f5c44a7f5fcd45b1
 
 jobs:
   lint-analyze-test:
@@ -34,4 +38,9 @@ jobs:
         run: composer analyze
 
       - name: Run tests
+<<<<<<< HEAD
         run: composer test
+=======
+        run: composer test
+
+>>>>>>> f33594e3ef75ff367ca088f0f5c44a7f5fcd45b1

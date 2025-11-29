@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blamodex\Otp\Services;
 
 use Blamodex\Otp\Contracts\OneTimePasswordableInterface;
+use Blamodex\Otp\Contracts\OtpGeneratorInterface;
 use Blamodex\Otp\Events\OneTimePasswordCreated;
 use Blamodex\Otp\Models\OneTimePassword;
-use Blamodex\Otp\Services\OtpGenerator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Service responsible for generating, verifying, and managing OTPs
@@ -21,18 +24,22 @@ class OtpService
      */
     public function generate(OneTimePasswordableInterface $model): string
     {
-        $otp = new OneTimePassword();
-        $otp->one_time_passwordable_id = $model->getKey();
-        $otp->one_time_passwordable_type = $model->getMorphClass();
+        $otpData = app(OtpGeneratorInterface::class)->generate();
 
-        $password = app(OtpGenerator::class)->generate($otp);
+        DB::transaction(function () use ($model, $otpData) {
+            $otp = new OneTimePassword();
+            $otp->one_time_passwordable_id = $model->getKey();
+            $otp->one_time_passwordable_type = $model->getMorphClass();
+            $otp->password_hash = $otpData->passwordHash;
+            $otp->expired_at = now()->addSeconds(config('blamodex.otp.expiry'));
+            $otp->save();
 
-        $this->expireAllFor($model);
-        $otp->save();
+            $this->expireAllFor($model);
 
-        event(new OneTimePasswordCreated($otp));
+            event(new OneTimePasswordCreated($otp));
+        });
 
-        return $password;
+        return $otpData->password;
     }
 
     /**
@@ -67,11 +74,10 @@ class OtpService
      * Retrieve the most recent OTP for the given model.
      *
      * @param OneTimePasswordableInterface $model The model to retrieve the OTP for.
-     * @param bool $withExpired Whether to include expired OTPs in the result.
      * @return OneTimePassword|null The latest OTP, or null if none found.
      */
-    private function getCurrent(OneTimePasswordableInterface $model, bool $withExpired = false): ?OneTimePassword
+    private function getCurrent(OneTimePasswordableInterface $model): ?OneTimePassword
     {
-        return OneTimePassword::getCurrentFor($model, $withExpired);
+        return OneTimePassword::getCurrentFor($model);
     }
 }

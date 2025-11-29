@@ -1,11 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Blamodex\Otp\Traits;
 
+use Blamodex\Otp\Models\OneTimePassword;
 use Blamodex\Otp\Services\OtpService;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait OneTimePasswordable
 {
+    public function oneTimePasswords(): MorphMany
+    {
+        return $this->morphMany(OneTimePassword::class, 'one_time_passwordable');
+    }
+
     /**
      * Generate and store a new password.
      */
