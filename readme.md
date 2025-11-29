@@ -1,9 +1,11 @@
 # Blamodex Laravel OTP
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/blamodex/laravel-otp.svg?style=flat-square)](https://packagist.org/packages/blamodex/laravel-otp)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/blamodex/laravel-otp/ci.yml?branch=main&label=tests&style=flat-square)](https://github.com/blamodex/laravel-otp/actions?query=workflow%3ACI+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/blamodex/laravel-otp/ci.yml?label=tests&style=flat-square)](https://github.com/blamodex/laravel-otp/actions)
 [![Total Downloads](https://img.shields.io/packagist/dt/blamodex/laravel-otp.svg?style=flat-square)](https://packagist.org/packages/blamodex/laravel-otp)
-[![License](https://img.shields.io/packagist/l/blamodex/laravel-otp.svg?style=flat-square)](https://packagist.org/packages/blamodex/laravel-otp)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Laravel](https://img.shields.io/badge/Laravel-12-red.svg?style=flat-square)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2%2B-blue.svg?style=flat-square)](https://www.php.net/)
 
 A lightweight Laravel package to add one-time password (OTP) capabilities to any Eloquent model using polymorphic relationships.
 
@@ -183,14 +185,22 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for deta
 
 ---
 
-## � Changelog
+## 📝 Changelog
 
 Please see [CHANGELOG.md](CHANGELOG.md) for recent changes.
 
 ---
 
-## �📄 License
+## 📄 License
 
 MIT © [Blamodex](https://github.com/blamodex)
 
 For more information, see the [LICENSE](LICENSE) file.
+
+---
+
+## 🔗 Links
+
+- [Report a Bug](https://github.com/blamodex/laravel-otp/issues)
+- [Request a Feature](https://github.com/blamodex/laravel-otp/issues)
+- [View Changelog](CHANGELOG.md)
