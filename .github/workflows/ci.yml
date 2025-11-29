@@ -3,15 +3,7 @@ name: CI
 on:
   pull_request:
     branches:
-<<<<<<< HEAD
-<<<<<<< HEAD
       - main
-=======
-      - master
->>>>>>> f33594e3ef75ff367ca088f0f5c44a7f5fcd45b1
-=======
-      - main
->>>>>>> 717a29035e3b13a218a05901d5e6d280b67148f3
 
 jobs:
   lint-analyze-test:
@@ -19,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ['8.2']
+        php-version: ['8.4']
 
     steps:
       - name: Checkout code
@@ -42,13 +34,4 @@ jobs:
         run: composer analyze
 
       - name: Run tests
-<<<<<<< HEAD
-<<<<<<< HEAD
         run: composer test
-=======
-        run: composer test
-
->>>>>>> f33594e3ef75ff367ca088f0f5c44a7f5fcd45b1
-=======
-        run: composer test
->>>>>>> 717a29035e3b13a218a05901d5e6d280b67148f3
